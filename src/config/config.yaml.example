@@ -1,0 +1,79 @@
+# 应用基础配置
+app:
+  name: "MCP Server with Chat"
+  version: "1.0.0"
+  description: "MCP Server 与 Chat API 的集成应用"
+  env: "dev"
+
+# 服务器配置
+server:
+  host: "0.0.0.0"
+  port: 8000
+  reload: true
+  cors_origins:
+    - "*"
+
+# 日志配置
+log:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  dir: "./logs"
+
+# 数据库配置
+db:
+  url: "mysql+aiomysql://user:password@localhost:3306/dbname?charset=utf8mb4"
+  pool_size: 5
+  max_overflow: 10
+  pool_timeout: 30
+  pool_recycle: 1800
+  echo: false
+
+# MCP配置
+mcp:
+  list:
+    - name: "demo"
+      description: "演示工具"
+      enabled: true
+      tools:
+        - add
+    - name: "data-asset"
+      description: "数据资产工具"
+      enabled: true
+      tools:
+        - get_data_asset
+
+# LLM配置
+llm:
+  model: "gpt-3.5-turbo"
+  api_key: "your-api-key"
+  api_base: "https://api.openai.com/v1"
+
+# 认证配置
+auth:
+  secret_key: "your-secret-key"
+  algorithm: "HS256"
+  access_token_expire_minutes: 30
+  refresh_token_expire_days: 7
+  exclude_paths_prefix:
+    - /api/v1/server
+  exclude_paths:
+    - "/api/v1/auth/login"
+
+# 用户配置
+users:
+  password_min_length: 8
+  password_max_length: 32
+  username_min_length: 5
+  username_max_length: 32
+
+# Milvus 配置
+milvus:
+  uri: "http://localhost:19530"
+  token: "root:Milvus"
+  db_name: "default"
+  collection: "default"
+
+
+# 聊天服务配置
+chat:
+  mcp_server_url:  "http://localhost:8000"
