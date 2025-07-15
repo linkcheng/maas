@@ -19,7 +19,9 @@ from mcp_server import init_fastmcp_app
 from rag.infra.vector_store_service import VectorStoreService
 
 # from chat.api.router import router as chat_router
+from chat.api.router import router as chat_router
 from user.api.router import router as user_router
+from rag.api.routes import router as rag_router
 
 # 配置日志
 setup_logging()
@@ -62,6 +64,8 @@ def register_exceptions(app: FastAPI):
 def register_routers(app: FastAPI):
 
     app.include_router(user_router, prefix="/api/v1", tags=["user"])
+    app.include_router(chat_router, prefix="/api/v1/chat", tags=["chat"])
+    app.include_router(rag_router, prefix="/api/v1/rag", tags=["rag"])
     
 
 def register_middleware(app: FastAPI):

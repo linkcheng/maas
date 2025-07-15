@@ -31,8 +31,8 @@ class PromptEntity:
     updated_at: datetime = field(default_factory=datetime.utcnow)
 
 @dataclass
-class ToolEntity:
-    """工具实体"""
+class ChatToolConfig:
+    """聊天工具配置实体"""
     id: Optional[int] = None
     name: str = ""
     description: str = ""

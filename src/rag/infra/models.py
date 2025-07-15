@@ -1,6 +1,6 @@
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime, JSON, Text
-from .database import Base
+from infra.database import Base
 
 class DocumentModel(Base):
     """文档数据库模型"""
@@ -19,6 +19,7 @@ class ChunkModel(Base):
     id = Column(String(100), primary_key=True)
     document_id = Column(String(100), nullable=False)
     content = Column(Text, nullable=False)
+    embedding = Column(JSON, nullable=True)  # 存储向量嵌入
     metadata = Column(JSON, nullable=False, default=dict)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
 
@@ -28,4 +29,5 @@ class QueryModel(Base):
 
     id = Column(String(100), primary_key=True)
     content = Column(Text, nullable=False)
+    embedding = Column(JSON, nullable=True)  # 存储向量嵌入
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow) 

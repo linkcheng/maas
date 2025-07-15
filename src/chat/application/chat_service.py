@@ -7,13 +7,13 @@ from ..domain.models.chat import (
     ChatToolEntity,
     SourceEntity,
     PromptEntity,
-    ToolEntity
+    ChatToolConfig
 )
 from ..domain.models.enums import ContentType, PromptType, Role
 from ..domain.services.chat_service import ChatDomainService
 from ..domain.services.llm_service import LLMDomainService
-from ..infrastructure.persistence.database import UnitOfWork
-from ..infrastructure.persistence.repositories import (
+from ...infra.database import UnitOfWork
+from ..infrastructure.repositories import (
     ChatRepository,
     ChatDataRepository,
     ChatToolRepository,

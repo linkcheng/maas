@@ -5,7 +5,7 @@ from typing import List
 from rag.domain.services import RAGDomainService
 from rag.application.schemas import Document, Query, Chunk
 from rag.application.services import RAGService
-from rag.infra.database import get_db
+from infra.database import get_session
 from rag.infra.repositories import (
     SQLDocumentRepository,
     SQLChunkRepository,
@@ -16,7 +16,7 @@ from rag.infra.embedding import EmbeddingService
 
 router = APIRouter()
 
-def get_rag_service(db: AsyncSession = Depends(get_db)) -> RAGService:
+def get_rag_service(db: AsyncSession = Depends(get_session)) -> RAGService:
     """获取RAG服务实例"""
     document_repo = SQLDocumentRepository(db)
     chunk_repo = SQLChunkRepository(db)

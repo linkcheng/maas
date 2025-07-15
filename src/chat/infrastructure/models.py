@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import Integer, String, Text, ForeignKey, DateTime, JSON, Enum, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .database import Base
+from infra.database import Base
 from ...domain.models.enums import SourceType, PromptType, Role, ContentType
 
 class Source(Base):
@@ -62,7 +62,7 @@ class Chat(Base):
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     chat_id: Mapped[str] = mapped_column(String(64), unique=True, index=True, nullable=False, default=lambda: uuid.uuid4().hex)
     source_id: Mapped[int] = mapped_column(Integer, ForeignKey("source.id", ondelete="CASCADE"), nullable=False)
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     system_prompt: Mapped[str | None] = mapped_column(Text, nullable=True)
     is_deleted: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     extra: Mapped[dict | None] = mapped_column(JSON, nullable=True)

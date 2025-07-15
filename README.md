@@ -90,19 +90,37 @@ python main.py
 
 ### 根路由
 - GET `/`: 服务状态检查和路由信息
+- GET `/health`: 健康检查
 
 ### MCP服务路由
-- `/mcp/api/v1/mcp/`: MCP API根路径
-- `/mcp/api/v1/mcp/mcps`: MCP管理
-- `/mcp/api/v1/mcp/mcps/{mcp_name}/tools`: 工具管理
-- `/mcp/api/v1/mcp/mcps/{mcp_name}/tools/{tool_name}/execute`: 执行工具
+- GET `/api/v1/server/mcp/`: MCP API根路径
+- POST `/api/v1/server/mcp/mcps`: 创建MCP
+- POST `/api/v1/server/mcp/mcps/{mcp_name}/tools`: 向MCP添加工具
+- POST `/api/v1/server/mcp/mcps/{mcp_name}/tools/{tool_name}/execute`: 执行工具
+
+### 用户管理路由
+- POST `/api/v1/users/`: 创建用户
+- POST `/api/v1/users/token`: 用户登录
+- GET `/api/v1/users/me`: 获取当前用户信息
+- PUT `/api/v1/users/me/password`: 修改密码
+- GET `/api/v1/users/{user_id}`: 获取用户信息
 
 ### 聊天路由
-- `/chat/api/v1/sources`: 聊天源管理
-- `/chat/api/v1/chats`: 聊天会话管理
-- `/chat/api/v1/users/{user_id}/chats`: 获取用户聊天
-- `/chat/api/v1/chats/{chat_id}/messages`: 聊天消息
-- `/chat/api/v1/chat-data`: 发送消息（流式响应）
+- POST `/api/v1/chat/sources`: 创建源
+- GET `/api/v1/chat/sources`: 获取源列表
+- GET `/api/v1/chat/sources/{source_id}`: 获取源详情
+- PUT `/api/v1/chat/sources/{source_id}`: 更新源
+- DELETE `/api/v1/chat/sources/{source_id}`: 删除源
+- POST `/api/v1/chat/chats`: 创建聊天会话
+- GET `/api/v1/chat/users/{user_id}/chats`: 获取用户聊天列表
+- GET `/api/v1/chat/chats/{chat_id}/messages`: 获取聊天消息
+- POST `/api/v1/chat/chat-tools`: 为聊天添加工具
+- POST `/api/v1/chat/chat-data`: 发送消息（流式响应）
+
+### RAG路由
+- POST `/api/v1/rag/documents`: 创建并处理文档
+- POST `/api/v1/rag/search`: 搜索相关文档块
+- GET `/api/v1/rag/documents/{document_id}`: 获取文档详情
 
 ## 开发
 

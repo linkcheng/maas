@@ -7,7 +7,7 @@ from ..models.chat import (
     ChatToolEntity,
     SourceEntity,
     PromptEntity,
-    ToolEntity
+    ChatToolConfig
 )
 
 class IChatRepository(ABC):
@@ -119,16 +119,16 @@ class IToolRepository(ABC):
     """工具仓储接口"""
     
     @abstractmethod
-    async def create_tool(self, tool: ToolEntity) -> ToolEntity:
+    async def create_tool(self, tool: ChatToolConfig) -> ChatToolConfig:
         """创建工具"""
         pass
     
     @abstractmethod
-    async def get_tool(self, tool_id: int) -> Optional[ToolEntity]:
+    async def get_tool(self, tool_id: int) -> Optional[ChatToolConfig]:
         """获取工具"""
         pass
     
     @abstractmethod
-    async def get_tools_by_source(self, source_id: int, skip: int = 0, limit: int = 100) -> List[ToolEntity]:
+    async def get_tools_by_source(self, source_id: int, skip: int = 0, limit: int = 100) -> List[ChatToolConfig]:
         """获取源的所有工具"""
         pass 

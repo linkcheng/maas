@@ -25,7 +25,7 @@ from chat.infrastructure.repositories import (
 from chat.domain.models.chat import (
     SourceEntity,
     PromptEntity,
-    ToolEntity,
+    ChatToolConfig,
     ChatEntity,
     ChatDataEntity,
     ChatToolEntity

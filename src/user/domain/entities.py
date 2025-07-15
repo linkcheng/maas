@@ -13,7 +13,7 @@ class User(BaseModel):
     hashed_password: str
     is_active: bool = True
     secret_key: str = token_urlsafe(32)
-    sk_updated_at: Optional[datetime] = None
+    secret_key_updated_at: Optional[datetime] = None
     is_superuser: bool = False
     last_login: Optional[datetime] = None
     created_at: Optional[datetime] = None
@@ -41,4 +41,4 @@ class User(BaseModel):
     def update_secret_key(self) -> None:
         """更新密钥"""
         self.secret_key = token_urlsafe(32)
-        self.sk_updated_at = datetime.now()
+        self.secret_key_updated_at = datetime.now()

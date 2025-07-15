@@ -16,7 +16,7 @@ from ...domain.models.chat import (
     ChatToolEntity,
     SourceEntity,
     PromptEntity,
-    ToolEntity
+    ChatToolConfig
 )
 from .models import Chat, ChatData, ChatTool, Source, Prompt, Tool
 
@@ -265,13 +265,13 @@ class PromptRepository(BaseRepository[PromptEntity, Prompt], IPromptRepository):
         models = result.scalars().all()
         return [self._to_entity(model) for model in models]
 
-class ToolRepository(BaseRepository[ToolEntity, Tool], IToolRepository):
+class ToolRepository(BaseRepository[ChatToolConfig, Tool], IToolRepository):
     """工具仓储实现"""
     
     def __init__(self, session: AsyncSession):
-        super().__init__(session, ToolEntity, Tool)
+        super().__init__(session, ChatToolConfig, Tool)
     
-    async def create_tool(self, tool: ToolEntity) -> ToolEntity:
+    async def create_tool(self, tool: ChatToolConfig) -> ChatToolConfig:
         """创建工具"""
         model = self._to_model(tool)
         self.session.add(model)
@@ -279,14 +279,14 @@ class ToolRepository(BaseRepository[ToolEntity, Tool], IToolRepository):
         await self.session.refresh(model)
         return self._to_entity(model)
     
-    async def get_tool(self, tool_id: int) -> Optional[ToolEntity]:
+    async def get_tool(self, tool_id: int) -> Optional[ChatToolConfig]:
         """获取工具"""
         stmt = select(Tool).where(Tool.id == tool_id)
         result = await self.session.execute(stmt)
         model = result.scalar_one_or_none()
         return self._to_entity(model)
     
-    async def get_tools_by_source(self, source_id: int, skip: int = 0, limit: int = 100) -> List[ToolEntity]:
+    async def get_tools_by_source(self, source_id: int, skip: int = 0, limit: int = 100) -> List[ChatToolConfig]:
         """获取源的所有工具"""
         stmt = select(Tool).where(
             Tool.source_id == source_id
