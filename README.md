@@ -1,6 +1,6 @@
-# MCP Data Analysis Server
+# Maas 平台
 
-这是一个基于 FastAPI 的数据资产服务和聊天平台，采用领域驱动设计(DDD)架构重构。系统包含两个主要模块：数据分析服务(`mcp_server`)和聊天应用(`chat`)。
+这是一个基于 FastAPI 的数据资产服务和聊天平台，采用领域驱动设计(DDD)架构重构。目前系统包含两个主要模块：工具服务(`mcp_server`)和聊天应用(`chat`)。
 
 ## 架构特点
 
@@ -12,7 +12,7 @@
 ### 系统架构图
 
 ```
-mcp-server/
+maas/
 ├── chat/                    # 聊天模块
 │   ├── domain/              # 领域层 - 核心业务模型
 │   ├── application/         # 应用层 - 业务协调
@@ -82,11 +82,6 @@ pip install -r requirements.txt
 # 运行完整集成版本（包含chat和mcp_server）
 python main.py
 
-# 或仅运行MCP服务
-python -m mcp_server.main
-
-# 或仅运行聊天服务
-python -m chat.main
 ```
 
 服务将在 http://localhost:8000 启动
@@ -177,7 +172,7 @@ LLM_API_KEY=your-api-key
 DOCKER_REGISTRY=localhost
 ```
 
-### 开发环境部署
+### 部署
 
 使用Docker Compose启动开发环境:
 
@@ -190,60 +185,3 @@ docker-compose up -d
 ```bash
 docker-compose down
 ```
-
-### 生产环境部署
-
-本项目提供了部署脚本`deploy.sh`，可以简化部署过程:
-
-1. 构建镜像:
-```bash
-./deploy.sh --build
-```
-
-2. 推送镜像到仓库(可选):
-```bash
-./deploy.sh --push
-```
-
-3. 部署应用:
-```bash
-./deploy.sh --deploy
-```
-
-一键构建并部署:
-```bash
-./deploy.sh --build --deploy
-```
-
-停止并移除容器:
-```bash
-./deploy.sh --down
-```
-
-查看帮助信息:
-```bash
-./deploy.sh --help
-```
-
-### 自定义镜像名称
-
-可以通过环境变量自定义镜像名称:
-
-```bash
-APP_VERSION=1.0.0 DOCKER_REGISTRY=myregistry.com ./deploy.sh --build --push
-```
-
-### 健康检查
-
-应用程序提供了健康检查端点：
-
-- `GET /health` - 返回应用程序状态
-
-### 镜像构建
-
-项目使用多阶段构建优化Docker镜像大小。Dockerfile基于Python 3.12，并使用最佳实践进行配置：
-
-- 使用轻量级基础镜像
-- 优化构建层和缓存
-- 使用非root用户运行应用程序
-- 包含健康检查 
